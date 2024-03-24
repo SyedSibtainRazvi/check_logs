@@ -2,7 +2,7 @@
   "name": "check_logs",
   "version": "1.0.0",
   "description": "An actions file to check console statements in code",
-  "main": "index.js",
+  "main": "action.yml",
   "scripts": {
     "test": "\"echo \\\"No tests specified\\\"\""
   },
