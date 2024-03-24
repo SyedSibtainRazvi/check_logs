@@ -7,19 +7,32 @@ on:
 runs:
   using: "composite"
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - name: Checkout PR
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 2
 
-    - name: Check for console.log
+    - name: Get changed files
+      id: changed-files
+      run: |
+        echo "changed_files=$(git diff --name-only -r HEAD^1 HEAD | xargs)" >> $GITHUB_ENV
+
+    - name: Check for console.log in changed files
       shell: bash
       run: |
         #!/bin/bash
         set -e
 
-        # Search for console.log statements in changed files
-        if grep -r --exclude=*.{json,yml,yaml} 'console.log' .; then
-            echo "ERROR: Console.log statements found. Please remove them before merging the pull request."
-            exit 1
-          else
-            echo "No console.log statements found. Proceeding with the pull request."
+        # Loop through each changed file
+        for file in $changed_files; do
+          # Check if the file is not excluded
+          if [[ ! $file =~ \.(json|yml|yaml)$ ]]; then
+            # Search for console.log statements in the file
+            if grep -q 'console.log' "$file"; then
+              echo "ERROR: Console.log statements found in $file. Please remove them before merging the pull request."
+              exit 1
+            fi
           fi
+        done
+
+        echo "No console.log statements found in changed files. Proceeding with the pull request."
