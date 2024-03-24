@@ -17,7 +17,7 @@ runs:
         set -e
 
         # Search for console.log statements in changed files
-        if grep -r --exclude=*.{js,json,yml,yaml} 'console.log' .; then
+        if grep -r --exclude=*.{json,yml,yaml} 'console.log' .; then
             echo "ERROR: Console.log statements found. Please remove them before merging the pull request."
             exit 1
           else
