@@ -1,7 +1,16 @@
 name: "Check Logs"
 description: "An action to check console statements in code"
-inputs: {} # No inputs defined for this action
-outputs: {} # No outputs defined for this action
+
 runs:
-  using: "node12" # or specify any supported environment
-  main: "check_logs.sh"
+  using: "docker" # or specify any supported environment
+  main: |
+    #!/bin/bash
+    set -e
+
+    # Search for console.log statements in changed files
+    if git diff --name-only $GITHUB_BASE_REF $GITHUB_HEAD_REF | xargs grep -En '\bconsole\.log\b'; then
+      echo "ERROR: Console.log statements found. Please remove them before merging the pull request."
+      exit 1
+    else
+      echo "No console.log statements found. Proceeding with the pull request."
+    fi
