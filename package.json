@@ -1,0 +1,22 @@
+{
+  "name": "check_logs",
+  "version": "1.0.0",
+  "description": "An actions file to check console statements in code",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"echo \\\"No tests specified\\\"\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyedSibtainRazvi/check_logs.git"
+  },
+  "keywords": [
+    "git"
+  ],
+  "author": "Syed Sibtain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SyedSibtainRazvi/check_logs/issues"
+  },
+  "homepage": "https://github.com/SyedSibtainRazvi/check_logs#readme"
+}
