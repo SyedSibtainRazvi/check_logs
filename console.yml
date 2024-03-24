@@ -1,0 +1,27 @@
+name: Check for console.log
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  check_console_log:
+    name: Check for console.log statements
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check for console.log
+        run: |
+          #!/bin/bash
+          set -e
+
+          # Search for console.log statements in changed files
+          if git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} | xargs grep -En '\bconsole\.log\b'; then
+            echo "ERROR: Console.log statements found. Please remove them before merging the pull request."
+            exit 1
+          else
+            echo "No console.log statements found. Proceeding with the pull request."
+          fi
