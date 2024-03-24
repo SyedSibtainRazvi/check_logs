@@ -2,7 +2,7 @@ name: "Check Logs"
 description: "An action to check console statements in code"
 
 runs:
-  using: "docker" # or specify any supported environment
+  using: "node12" # or specify any supported environment
   main: |
     #!/bin/bash
     set -e
