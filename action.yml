@@ -5,7 +5,7 @@ on:
     types: [opened, reopened, synchronize]
 
 runs:
-  using: "node14"
+  using: "node16"
 
 jobs:
   check_console_log:
