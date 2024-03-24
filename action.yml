@@ -6,14 +6,12 @@ on:
 
 runs:
   using: "composite"
-  name: Check for console.log statements
-  runs-on: ubuntu-latest
-
   steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
     - name: Check for console.log
+      shell: bash
       run: |
         #!/bin/bash
         set -e
