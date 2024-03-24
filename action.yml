@@ -4,6 +4,9 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
 
+runs:
+  using: "bash"
+
 jobs:
   check_console_log:
     name: Check for console.log statements
